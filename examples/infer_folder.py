@@ -113,6 +113,20 @@ def estimate_height_weight(model: OSIMModel, sex_flag: float, template: OSIMMode
     w_est = float(generic_w * w_ratio)
     return h_est, w_est
 
+def assemble_chunks_if_needed(ckpt_path: Path):
+    """Reassembles .part files into the full checkpoint if it doesn't exist."""
+    if ckpt_path.exists():
+        return
+    part_files = sorted(glob.glob(f"{ckpt_path}.part*"))
+    if not part_files:
+        return
+    print(f"Auto-assembling chunked model: {ckpt_path.name}...")
+    with open(ckpt_path, 'wb') as out_f:
+        for p in part_files:
+            with open(p, 'rb') as in_f:
+                out_f.write(in_f.read())
+    print(f"Successfully assembled {ckpt_path.name}")
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -241,6 +255,10 @@ Examples:
     mlp_via_ckpt_path = MODELS_PATH / 'mlp_via.pt'
     rf_force_ckpt_path = MODELS_PATH / 'rf_force.pkl'
     rf_via_ckpt_path = MODELS_PATH / 'rf_via.pkl'
+
+    # Auto-assemble RF chunks if the user just cloned the repo
+    assemble_chunks_if_needed(rf_force_ckpt_path)
+    assemble_chunks_if_needed(rf_via_ckpt_path)
 
     rf_available = rf_force_ckpt_path.exists()
     latent_available = latent_ckpt_path.exists()
