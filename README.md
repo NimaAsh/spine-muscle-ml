@@ -136,7 +136,20 @@ Reproduction notes and script order are in [docs/reproducibility.md](docs/reprod
 
 ## Citation
 
-Citation and funding information are in [CITATION.md](CITATION.md).
+If you use this repository or dataset in your research, please cite the accompanying paper:
+
+**Ashjaee, N., Street, J., Fels, S., & Oxland, T.** (2026). *Machine learning outperforms anthropometric scaling in predicting muscle parameters and spinal loading: a subject-specific musculoskeletal modeling study*. European Spine Journal. [https://doi.org/10.1007/s00586-026-09878-1](https://doi.org/10.1007/s00586-026-09878-1)
+
+```bibtex
+@article{Ashjaee2026,
+  title={Machine learning outperforms anthropometric scaling in predicting muscle parameters and spinal loading: a subject-specific musculoskeletal modeling study},
+  author={Ashjaee, Nima and Street, John and Fels, Sidney and Oxland, Thomas},
+  journal={European Spine Journal},
+  year={2026},
+  doi={10.1007/s00586-026-09878-1},
+  url={https://doi.org/10.1007/s00586-026-09878-1}
+}
+```
 
 ## License
 
