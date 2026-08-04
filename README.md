@@ -25,10 +25,10 @@ Anderson, D., Mokhtarzadeh, H., Allaire, B., Burkhart, K., Bouxsein, M., 2020.
 ## Included
 
 - `osim_parser/`: lightweight OpenSim XML parser/editor
-- `examples/`: curated training, inference, and evaluation scripts
+- `examples/`: curated training, inference, and evaluation scripts (including standalone `infer_folder.py`)
 - `models/`: bundled neural checkpoints and evaluation metrics available in the current workspace
 - `datasets/`: normalization metadata and cached generic-template muscle properties
-- `docs/`: usage and reproducibility notes
+- `docs/`: usage, reproducibility notes, and [standalone inference guide](docs/standalone-inference.md)
 
 ## Not Included
 
@@ -89,6 +89,22 @@ Run the end-to-end pipeline:
 ```bash
 python run_all.py
 ```
+
+## Standalone Inference (New OSIM Files)
+
+To run inference on your own `.osim` files without rebuilding the dataset:
+
+```bash
+python examples/infer_folder.py \
+    --input-dir /path/to/your/osims \
+    --sex male \
+    --age 55
+```
+
+By default this uses the paper's best hybrid approach (RF for force + Latent
+for geometry). It accepts explicit `--age`, `--sex`, `--height`, and `--weight`
+arguments and does not require the `Male/AgeXXXX/` folder convention. See
+[docs/standalone-inference.md](docs/standalone-inference.md) for full details.
 
 ## Bundled Artifacts
 
