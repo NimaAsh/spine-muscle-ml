@@ -1,10 +1,10 @@
-# Spine Muscle ML
+# spine-muscle-ml
 
-Code accompanying the paper:
+Code accompanying the published paper:
 
-**Machine Learning Outperforms Anthropometric Scaling in Predicting Muscle Parameters and Spinal Loading: A Subject-Specific Musculoskeletal Modeling Study**
-
-Status: accepted in *European Spine Journal*.
+**Machine Learning Outperforms Anthropometric Scaling in Predicting Muscle Parameters and Spinal Loading: A Subject-Specific Musculoskeletal Modeling Study**  
+Published in *European Spine Journal* (2026).  
+[https://doi.org/10.1007/s00586-026-09878-1](https://doi.org/10.1007/s00586-026-09878-1)
 
 This repository packages the core code used to:
 
