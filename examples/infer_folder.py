@@ -362,8 +362,12 @@ Examples:
             # Get sacrum mass ratio for body mass scaling
             w_ratio = _sacrum_mass_ratio(model, template)
 
-            # Compute baseline deltas
+            # Compute baseline deltas (baseline_targets returns dVia_bl in METERS)
             dF_bl, dVia_bl = baseline_targets(model, template, sex_flag, muscles_order, via_len)
+            
+            # Convert dVia_bl to mm if model targets were in mm, so they match
+            if VIA_MILLIMETERS:
+                dVia_bl = [v * 1000.0 for v in dVia_bl]
 
             # Normalize features
             x_mu = np.array(stats['X']['mean'], dtype=float)
@@ -388,7 +392,9 @@ Examples:
                 if 'Y_force_log' in stats:
                     tmpl_forces = []
                     for m in muscles_order:
-                        ft = (template.data['forces'].get(m) or {}).get('max_isometric_force', 0.0)
+                        ft = (template.data['forces'].get(m) or {}).get('max_isometric_force')
+                        if ft is None:
+                            ft = 0.0
                         tmpl_forces.append(float(ft))
                     f_t_arr = np.array(tmpl_forces, dtype=float)
                     Yf_add = f_t_arr * (np.exp(Yf_res) - 1.0)

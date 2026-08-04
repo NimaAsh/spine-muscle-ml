@@ -608,6 +608,12 @@ class OSIMModel:
         if loc_el is None:
             loc_el = ET.SubElement(pplist[index], "location")
         loc_el.text = f" {location[0]} {location[1]} {location[2]}"
+        
+        # Update in-memory data dict so calculate_muscle_length uses new values
+        if muscle_name in self.data.get("forces", {}):
+            pps_list = self.data["forces"][muscle_name].get("path_points", [])
+            if 0 <= index < len(pps_list):
+                pps_list[index]["location"] = list(location)
         # Update dict mirror
         mus = self.data.get("forces", {}).get(muscle_name)
         if mus and 0 <= index < len(mus.get("path_points", [])):
