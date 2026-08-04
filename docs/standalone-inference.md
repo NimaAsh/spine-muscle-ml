@@ -33,8 +33,9 @@ python examples/infer_folder.py \
 | Argument | Required | Default | Description |
 |---|---|---|---|
 | `--input-dir` | Yes | — | Directory containing `.osim` files to process |
-| `--sex` | Yes | — | Subject sex: `male` or `female` |
-| `--age` | No | `65.0` | Subject age in years |
+| `--demographics-csv` | No | — | Path to a CSV file containing `ID`, `Sex`, and `Age` columns. The script reads the OSIM filename prefix (e.g. `123` from `123_model.osim`) to dynamically look up and assign the sex and age. If this is not provided, you must specify `--sex`. |
+| `--sex` | No | — | Subject sex: `male` or `female`. Required unless `--demographics-csv` is used. |
+| `--age` | No | `65.0` | Subject age in years. Overridden if `--demographics-csv` is used. |
 | `--model` | No | `hybrid` | Model strategy: `hybrid` (RF force + Latent via), `latent`, or `mlp` |
 | `--output-dir` | No | `<input-dir>/revised/` | Output directory for revised OSIMs |
 | `--data-root` | No | `$OPENSIM_MUSCLE_NN_DATA_ROOT` | Path to dataverse files root |
@@ -72,6 +73,11 @@ auto-estimated values in the feature vector before normalization and inference.
 python examples/infer_folder.py \
     --input-dir ./my_osims \
     --sex male
+
+# Batch processing with dynamic demographics:
+python examples/infer_folder.py \
+    --input-dir ./my_osims \
+    --demographics-csv ./subject_data.csv
 
 # Use only latent model for both force and geometry
 python examples/infer_folder.py \

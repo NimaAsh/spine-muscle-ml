@@ -95,15 +95,21 @@ python run_all.py
 To run inference on your own `.osim` files without rebuilding the dataset:
 
 ```bash
+# Example 1: explicit age and sex
 python examples/infer_folder.py \
     --input-dir /path/to/your/osims \
     --sex male \
     --age 55
+
+# Example 2: read dynamic age and sex from a demographic CSV file
+python examples/infer_folder.py \
+    --input-dir /path/to/your/osims \
+    --demographics-csv /path/to/demographics.csv
 ```
 
 By default this uses the paper's best hybrid approach (RF for force + Latent
-for geometry). It accepts explicit `--age`, `--sex`, `--height`, and `--weight`
-arguments and does not require the `Male/AgeXXXX/` folder convention. See
+for geometry). It accepts explicit arguments or dynamic lookups from a CSV and
+does not require the `Male/AgeXXXX/` folder convention. See
 [docs/standalone-inference.md](docs/standalone-inference.md) for full details.
 
 ## Bundled Artifacts
