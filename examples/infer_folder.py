@@ -372,7 +372,12 @@ Examples:
             # Normalize features
             x_mu = np.array(stats['X']['mean'], dtype=float)
             x_sd = np.array(stats['X']['std'], dtype=float)
-            Xn = ((np.array(feats, dtype=float) - x_mu) / x_sd).tolist()
+            
+            # If a feature had zero variance during training, ignore it during inference
+            # otherwise small differences in the test set will explode (division by 1e-8)
+            Xn_arr = (np.array(feats, dtype=float) - x_mu) / x_sd
+            Xn_arr[x_sd < 1e-5] = 0.0
+            Xn = Xn_arr.tolist()
 
             # ---------- FORCE prediction ----------
             if force_model == 'rf':
